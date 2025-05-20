@@ -5,13 +5,13 @@ import com.example.todolistapp.data.repo.ToDosRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ToDoDetayViewModel : ViewModel()  {
-    var todoRepository = ToDosRepository()
+class ToDoDetayViewModel @Inject constructor(var todoRepository: ToDosRepository) : ViewModel() {
 
     fun guncelle(todo_id: Int,todo_name: String,todo_detay: String){
         CoroutineScope(Dispatchers.Main).launch {
-            todoRepository.guncelle(todo_id,todo_name,todo_name)
+            todoRepository.guncelle(todo_id,todo_name,todo_detay)
         }
     }
 }

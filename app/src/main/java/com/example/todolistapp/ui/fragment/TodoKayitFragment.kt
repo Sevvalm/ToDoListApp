@@ -10,8 +10,10 @@ import com.example.todolistapp.R
 import com.example.todolistapp.databinding.FragmentTodoDetayBinding
 import com.example.todolistapp.databinding.FragmentTodoKayitBinding
 import com.example.todolistapp.ui.viewmodel.ToDoKayitViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class TodoKayitFragment : Fragment() {
     private lateinit var binding: FragmentTodoKayitBinding
     private lateinit var viewModel: ToDoKayitViewModel
@@ -21,6 +23,13 @@ class TodoKayitFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTodoKayitBinding.inflate(inflater,container,false)
+
+        binding.buttonKayit.setOnClickListener {
+            val todo_name = binding.editTextTodoName.text.toString()
+            val todo_detay = binding.editTextTodoName.text.toString()
+            viewModel.kaydet(todo_name,todo_detay)
+        }
+
         return binding.root
     }
 

@@ -4,20 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolistapp.data.entity.ToDos
 import com.example.todolistapp.data.repo.ToDosRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AnasayfaViewModel : ViewModel() {
-
-    var todoRepository = ToDosRepository()
+@HiltViewModel
+class AnasayfaViewModel @Inject constructor(var todoRepository: ToDosRepository) : ViewModel() {
 
     var todoListesi = MutableLiveData<List<ToDos>>()
 
     init {
         todoYukle()
     }
-
 
     fun sil(todo_id:Int){
         CoroutineScope(Dispatchers.Main).launch {

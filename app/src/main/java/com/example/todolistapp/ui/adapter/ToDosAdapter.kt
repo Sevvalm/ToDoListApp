@@ -9,6 +9,8 @@ import com.example.todolistapp.data.entity.ToDos
 import com.example.todolistapp.databinding.CardTasarimBinding
 import com.example.todolistapp.ui.fragment.AnasayfaFragmentDirections
 import com.example.todolistapp.ui.viewmodel.AnasayfaViewModel
+import com.example.todolistapp.utils.gecisYap
+import com.google.android.material.snackbar.Snackbar
 
 class ToDosAdapter (var mContext: Context, var todolarListesi: List<ToDos>, var viewModel: AnasayfaViewModel)
     : RecyclerView.Adapter<ToDosAdapter.CardTasarimTutucu>(){
@@ -29,18 +31,17 @@ class ToDosAdapter (var mContext: Context, var todolarListesi: List<ToDos>, var 
 
         t.cardViewSatir.setOnClickListener {
             val gecis = AnasayfaFragmentDirections.todoDetayGecis(todo = toDos)
-            Navigation.findNavController(it).navigate(gecis)
+            Navigation.gecisYap(it,gecis)
         }
 
         t.imageViewSil.setOnClickListener {
-
+            Snackbar.make(it,"${toDos.todo_name} silinsin mi?", Snackbar.LENGTH_SHORT)
+                .setAction("EVET") {
+                    viewModel.sil(toDos.todo_id)
+                }.show()
         }
-
-
     }
     override fun getItemCount(): Int {
         return todolarListesi.size
     }
-
-
-    }
+}

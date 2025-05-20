@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_todo_detay" >
     <argument
         android:name="todo"
-        app:argType="com.example.ToDoListApp.data.entity.ToDos" />
+        app:argType="com.example.todolistapp.data.entity.ToDos" />
     </fragment>
     <fragment
         android:id="@+id/todoKayitFragment"

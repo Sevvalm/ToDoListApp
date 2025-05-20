@@ -15,8 +15,11 @@ import com.example.todolistapp.databinding.FragmentAnasayfaBinding
 import com.example.todolistapp.ui.adapter.ToDosAdapter
 import com.example.todolistapp.ui.viewmodel.AnasayfaViewModel
 import android.widget.SearchView
+import com.example.todolistapp.utils.gecisYap
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class AnasayfaFragment : Fragment() {
     private lateinit var binding: FragmentAnasayfaBinding
     private lateinit var viewModel: AnasayfaViewModel
@@ -30,35 +33,24 @@ class AnasayfaFragment : Fragment() {
 
 
         binding.fab.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.todoKayitGecis)
+            Navigation.gecisYap(it,R.id.todoKayitGecis)
         }
 
-
-//        val todolarListesi = ArrayList<ToDos>()
-//        val t1 = ToDos(1,"First ToDo","Deneme1")
-//        val t2 = ToDos(2,"Second ToDo","Deneme2")
-//        val t3 = ToDos(1,"Third ToDo","Deneme3")
-//        val t4 = ToDos(1,"Fourth ToDo","Deneme4")
-//        todolarListesi.add(t1)
-//        todolarListesi.add(t2)
-//        todolarListesi.add(t3)
-//        todolarListesi.add(t4)
-//
-//        val todoAdapter = ToDosAdapter(requireContext(),todolarListesi,viewModel)
-//        binding.todosRv.adapter = todoAdapter
-        //viewModel.to
+        viewModel.todoListesi.observe(viewLifecycleOwner) {
+            val toDosAdapter = ToDosAdapter(requireContext(),it,viewModel)
+            binding.todosRv.adapter = toDosAdapter
+        }
 
         //alt alta sirala
         binding.todosRv.layoutManager = LinearLayoutManager(requireContext())
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
-                ara(newText)
+                viewModel.ara(newText)
                 return true
             }
-
             override fun onQueryTextSubmit(query: String): Boolean {
-                ara(query)
+                viewModel.ara(query)
                 return true
             }
         })
@@ -70,7 +62,7 @@ class AnasayfaFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("ToDo Anasayfaya","Dönüldü")
+        viewModel.todoYukle()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
