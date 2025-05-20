@@ -8,9 +8,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class ToDoKayitViewModel(var todoRepository : ToDosRepository) : ViewModel()  {
+class ToDoKayitViewModel @Inject constructor(private val todoRepository: ToDosRepository) : ViewModel() {
 
     fun kaydet(todo_name: String,todo_detay: String){
         CoroutineScope(Dispatchers.Main).launch {

@@ -26,7 +26,7 @@ class TodoKayitFragment : Fragment() {
 
         binding.buttonKayit.setOnClickListener {
             val todo_name = binding.editTextTodoName.text.toString()
-            val todo_detay = binding.editTextTodoName.text.toString()
+            val todo_detay = binding.editTextTodoIcerik.text.toString()
             viewModel.kaydet(todo_name,todo_detay)
         }
 
